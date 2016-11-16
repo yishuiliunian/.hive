@@ -1,0 +1,22 @@
+#!/bin/bash
+VERSION=1.0.0
+echo "Hive--"$VERSION
+
+if [ ! -n "$1" ] ;then
+    echo "please input the hive module name"
+    exit 1
+fi
+#get spec name
+hiveMod=$1
+mkdir $hiveMod
+mkdir -p $hiveMod/Pod/Classes
+touch $hiveMod/Pod/Classes/replace.m
+touch $hiveMod/README.md
+cd $hiveMod
+#podspec file
+specFileName=$hiveMod.podspec
+cp ~/.hive/templates/template.podspec  $specFileName
+sed -i '' -e "s;<POD_NAME>;$hiveMod;" $specFileName
+git init
+git add .
+git commit -m "init"
